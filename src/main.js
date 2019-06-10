@@ -37,16 +37,6 @@ Vue.use(Lazyload)
 // 2.4 安装 图片预览插件
 import VuePreview from 'vue-preview'
 Vue.use(VuePreview)
-// Vue.use(preview, {
-//     mainClass: 'pswp--minimal--dark',
-//     barsSize: {top: 0, bottom: 0},
-//     captionEl: false,
-//     fullscreenEl: false,
-//     shareEl: false,
-//     bgOpacity: 0.85,
-//     tapToClose: true,
-//     tapToToggleControls: false
-// })
 
 // 2.导入 App 根组件
 import app from './App.vue'
