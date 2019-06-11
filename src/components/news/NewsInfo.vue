@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import comment from "../comment/comment.vue"
+import comment from "../subcomponents/comment.vue"
 import { Toast } from "mint-ui"
 export default {
     data(){
