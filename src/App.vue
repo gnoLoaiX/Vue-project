@@ -1,7 +1,9 @@
 <template>
     <div class="app-container">
         <!-- mint-Header 顶部导航栏，支持显示按钮、自定义文字和固定在顶部。 -->
-        <mt-header fixed title="基于Vue的移动端项目"></mt-header>
+        <mt-header fixed title="基于Vue的移动端项目">
+            <mt-button icon="back">返回</mt-button>
+        </mt-header>
 
         <!-- 中间的 路由 router-view 区域 -->
 		<transition>
@@ -21,7 +23,7 @@
             </router-link>
             <router-link class="mui-tab-item-yjl" to="/shopcar">
                 <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-                    <span class="mui-badge">0</span>
+                    <span class="mui-badge" id="badge">0</span>
                 </span>
                 <span class="mui-tab-label">购物车</span>
             </router-link>

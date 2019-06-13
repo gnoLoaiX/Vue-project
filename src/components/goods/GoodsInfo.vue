@@ -18,8 +18,8 @@
                         市场价：<del>￥{{ goodsinfo.market_price }}</del>&nbsp;&nbsp;销售价：<span class="now_price">￥{{ goodsinfo.sell_price }}</span>
                     </p>
                     <p>购买数量：<numbox @getcount="getSelectedCount" :max="goodsinfo.stock_quantity"></numbox></p>
-                    <p>
-                        <mt-button type="danger" size="small">加入购物车</mt-button>
+                    <p class="direction">
+                        <mt-button type="danger" size="small" @click="addToShopCar">加入购物车</mt-button>
                         <mt-button type="primary" size="small">立即购买</mt-button>
                     </p>
                 </div>
@@ -48,7 +48,7 @@
             @before-enter="beforeEnter"
             @enter="enter"
             @after-enter="afterEnter">
-            <div class="ball" v-show="ballFlag"></div>
+            <div class="ball" v-show="ballFlag" ref="ball"></div>
         </transition>
     </div>
 </template>
@@ -98,14 +98,35 @@ export default {
             // 点击跳转到 评论页面
             this.$router.push({ name: "goodscomment", params: { id } });
         },
+        addToShopCar(){
+            this.ballFlag = !this.ballFlag
+            // 拼接出一个，要保存到 store 中 car 数组里的 商品信息对象
+            const goodsinfo = {
+                id: this.id,
+                count: this.selectedCount,
+                price: this.goodsinfo.sell_price,
+                selected: true
+            }
+            // 调用 store 中的 mutations 来将商品加入购物车
+            this.$store.commit("addToCar", goodsinfo)
+        },
         beforeEnter(el){
-          
+            // console.log(el)
+            el.style.transform = "translate(0, 0)"
         },
         enter(el, done){
-              done()
+            // 获取小秋页面的位置
+            const ballPosition = this.$refs.ball.getBoundingClientRect()
+            const badgePosition = document.getElementById("badge").getBoundingClientRect()
+            const xPos = badgePosition.left - ballPosition.left
+            const yPos = badgePosition.top - ballPosition.top
+            el.style.transform = `translate(${xPos}px, ${yPos}px)`
+            // 贝塞尔曲线
+            el.style.transition = "all 0.5s cubic-bezier(.4,-0.3,1,.68)";
+            done()
         },
         afterEnter(el){
-            
+            this.ballFlag = !this.ballFlag
         },
         getSelectedCount(count){
             this.selectedCount = count
@@ -133,6 +154,10 @@ export default {
             button {
                 margin: 15px 0;
             }
+        }
+        .direction {
+            display: flex;
+            justify-content: space-between;
         }
     }
     .ball {

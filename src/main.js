@@ -38,6 +38,35 @@ Vue.use(Lazyload)
 import VuePreview from 'vue-preview'
 Vue.use(VuePreview)
 
+// 2.5 导入vuex 注册
+import Vuex from 'vuex'
+Vue.use(Vuex)
+const store = new Vuex.Store({
+    state: {
+        car: []
+    }, 
+    mutations: {
+        addToCar(state, goodsinfo){
+            // 假设 在购物车中，没有找到对应的商品 flag = true
+            let flag = false
+            state.car.some(item => {
+                if(item.id == goodsinfo.id){
+                    item.count += parseInt(goodsinfo.count)
+                    flag = true
+                    return true
+                }
+            })
+            // 如果最终，循环完毕，得到的 flag 还是 false，则把商品数据直接 push 到 购物车中
+            if (!flag) {
+                state.car.push(goodsinfo)
+            }
+        }
+    },
+    getters: {
+
+    }
+})
+
 // 2.导入 App 根组件
 import app from './App.vue'
 // 1.2 导入自己的 router.js 路由模块
@@ -48,5 +77,6 @@ const vm = new Vue({
     el: '#app',
     // 渲染根组件
     render: c => c(app),
-    router
+    router,
+    store
 })
