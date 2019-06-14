@@ -230,10 +230,12 @@ const vm = new Vue({
 1. 在网页中，有两种跳转方式：(看官方文档)
    - 方式1： 使用 a 标签 的形式叫做 标签跳转
    - 方式2： 使用 window.location.href 的形式，叫做 编程式导航 
-2.  注意： 要区分 this.$route 和 this.$router 这两个对象，
+2. 注意： 要区分 this.$route 和 this.$router 这两个对象，
    - 其中： this.$route 是路由【参数对象】，所有路由中的参数， params, query 都属于它
-   -  this.$router 是一个路由【导航对象】，用它 可以方便的 使用 JS 代码，实现路由的 前进、后退、 跳转到新的 URL 地址
+   - this.$router 是一个路由【导航对象】，用它 可以方便的 使用 JS 代码，实现路由的 前进、后退、 跳转到新的 URL 地址
    - **export** **default** 中 data 是往自己组件内部，挂载一些私有数据的
+
+   
 
 #### 绘制商品详情页面的卡片视图.
 1. card.html 利用页眉、页脚、和body
