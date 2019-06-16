@@ -107,6 +107,7 @@ export default {
                 price: this.goodsinfo.sell_price,
                 selected: true
             }
+            console.log(this.id)
             // 调用 store 中的 mutations 来将商品加入购物车
             this.$store.commit("addToCar", goodsinfo)
         },

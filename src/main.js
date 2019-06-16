@@ -4,6 +4,7 @@
 
 // 1.导入vue
 import Vue from 'vue'
+Vue.config.devtools = true
 // 1.1 导入路由的包-安装路由
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
@@ -26,12 +27,14 @@ Vue.filter('dateFormat', function (value, pattern = "YYYY-MM-DD") {
 })
 
 // 1.4 导入 App 根组件之前，需要 按需导入 Mint-UI 中的组件
-import { Header, Swipe, SwipeItem, Button, Lazyload } from 'mint-ui'
+import { Header, Swipe, SwipeItem, Button, Lazyload, Switch } from 'mint-ui'
 Vue.component(Header.name, Header)
 Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
 Vue.component(Button.name, Button)
+Vue.component(Switch.name, Switch)
 Vue.use(Lazyload)
+
 
 
 // 2.4 安装 图片预览插件
@@ -41,9 +44,10 @@ Vue.use(VuePreview)
 // 2.5 导入vuex 注册
 import Vuex from 'vuex'
 Vue.use(Vuex)
-const store = new Vuex.Store({
+let car = JSON.parse(localStorage.getItem('car') || '[]')
+const store = new Vuex.Store({ 
     state: {
-        car: []
+        car: car
     }, 
     mutations: {
         addToCar(state, goodsinfo){
@@ -60,10 +64,18 @@ const store = new Vuex.Store({
             if (!flag) {
                 state.car.push(goodsinfo)
             }
+            // 当 更新 car 之后，把 car 数组，存储到 本地的 localStorage 中
+            localStorage.setItem('car', JSON.stringify(state.car))
         }
     },
     getters: {
-
+        getAllCount(state){
+            let c = 0
+            state.car.forEach(item => {
+                c += item.count
+            })
+            return c
+        }
     }
 })
 

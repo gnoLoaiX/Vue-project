@@ -279,11 +279,9 @@ const vm = new Vue({
     - 如果购物车中，之前就已经有这个对应的商品了，那么，只需要更新数量
 
     - 如果没有，则直接把 商品数据，push 到 car 中即可
-  -  使用找到就停止的 some 循环，然后就是再点击按钮的时候先拼接 对象调用 store 中的 mutations  就可以了。
-
-
-
-
+  - 使用找到就停止的 some 循环，然后就是再点击按钮的时候先拼接 对象调用 store 中的 mutations  就可以了。
+  - 然后 App.vue 徽标 数值的的改变，使用 getters 相当于 计算属性，也相当于 filters，getters 依赖与state 上的car，只要state身上的值修改了，就会重新计算里面的数量值。只要car 里面的值修改了，就会重新修改 getters 里面的数量值。而不用关心再加一条商品的时候想办法重新计算属性。
+  - 实现了商品之后，重新刷新页面之后，数量没有了。因为数据只是保存到 state 中去了，state 说白了就是一块内存，当你重新起动整个网站内存就会被清空了。处理往 state 存储，还要往 Application 里面的 Local Storage ，同时 car: [ ] , 也不同初始化为一个空对象了，而是把本地存储里面的car 获取出来，然后转成一个转成一个数组，然后把数组 交给 car 。（每次刚进入网站，肯定会 调用 main.js 在刚调用的时候，先从本地存储中，把 购物车的数据读出来，放到 store 中）
 
 
 ##### 总结：
@@ -292,6 +290,13 @@ const vm = new Vue({
 2. 如果组件想要直接 从 state 上获取数据： 需要` this.$store.state.xxx`
 3. 如果 组件，想要修改数据，必须使用 `mutations `提供的方法，需要通过` this.$store.commit`('方法的名称'， 唯一的一个参数)
 4. 如果 store 中 state 上的数据， 在对外提供的时候，需要做一层包装，那么 ，推荐使用 getters, 如果需要使用 getters ,则用 `this.$store.getters.xxx`
+
+
+
+#### 绘制购物车页面
+
+1. 使用mui card.html 代码片段，
+2. 改造选择数字框组件 
 
 
 
